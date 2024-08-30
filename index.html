@@ -6,36 +6,102 @@
     <title>Abstract Webpage</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
+            background: linear-gradient(45deg, #FFC107, #FF5722);
+            background-size: 200% 200%;
+            animation: gradientBG 5s ease infinite;
         }
-        .container {
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
             text-align: center;
+            font-size: 3em;
+            padding: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 5px #000;
         }
-        a {
-            padding: 15px 25px;
-            color: white;
-            background-color: #007bff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+
+        .content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60vh;
+            flex-wrap: wrap;
         }
-        a:hover {
-            background-color: #0056b3;
+
+        .maze, .snake-game, .tic-tac-toe {
+            border: 5px solid #fff;
+            border-radius: 15px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
+
+        .game-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to My Abstract Page</h1>
-        <p>This is a simple webpage that provides a link to explore:</p>
-        <a href="https://glass.photo/_tim" target="_blank">photos</a>
+    <div class="header">Welcome to My Abstract World</div>
+
+    <div class="content">
+        <div class="maze">
+            <h2>Maze</h2>
+            <canvas id="mazeCanvas" width="200" height="200"></canvas>
+        </div>
+
+        <div class="snake-game">
+            <h2>Snake Game</h2>
+            <canvas id="snakeCanvas" width="200" height="200"></canvas>
+        </div>
+
+        <div class="tic-tac-toe">
+            <h2>Tic Tac Toe</h2>
+            <div id="ticTacToeGame"></div>
+        </div>
     </div>
+
+    <script>
+        // Simple maze drawing
+        function drawMaze() {
+            const canvas = document.getElementById('mazeCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'black';
+            for (let i = 0; i < 10; i++) {
+                ctx.fillRect(i * 20, i * 20, 10, 10);
+            }
+        }
+
+        // Simple Snake Game logic
+        function initSnakeGame() {
+            const canvas = document.getElementById('snakeCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'green';
+            ctx.fillRect(10, 10, 20, 20);
+        }
+
+        // Simple Tic Tac Toe
+        function initTicTacToe() {
+            const container = document.getElementById('ticTacToeGame');
+            container.innerHTML = '<p>Coming Soon...</p>';
+        }
+
+        // Initialize all games and elements
+        window.onload = function() {
+            drawMaze();
+            initSnakeGame();
+            initTicTacToe();
+        }
+    </script>
 </body>
 </html>
