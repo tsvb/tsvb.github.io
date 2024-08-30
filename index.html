@@ -1,107 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abstract Webpage</title>
+    <title>gitty up</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(45deg, #FFC107, #FF5722);
-            background-size: 200% 200%;
-            animation: gradientBG 5s ease infinite;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .header {
+        header {
+            background-color: #FF6F61;
+            color: white;
+            padding: 50px;
             text-align: center;
-            font-size: 3em;
-            padding: 20px;
-            color: #fff;
-            text-shadow: 2px 2px 5px #000;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
         }
 
         .content {
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 60vh;
-            flex-wrap: wrap;
-        }
-
-        .maze, .snake-game, .tic-tac-toe {
-            border: 5px solid #fff;
-            border-radius: 15px;
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-        }
-
-        .game-container {
-            width: 100%;
-            display: flex;
             justify-content: center;
-            margin-top: 20px;
+            align-items: center;
+            flex-direction: column;
+            min-height: 80vh;
+            padding: 20px;
+            background-color: #E5D4B5;
+        }
+
+        .content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2E4057;
+        }
+
+        .content p {
+            font-size: 1rem;
+            max-width: 600px;
+            text-align: center;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .shapes {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            height: 50px;
+            width: 50px;
+            background-color: #FFB27F;
+            border-radius: 50%;
+        }
+
+        .shapes::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            height: 50px;
+            width: 50px;
+            background-color: #FF6F61;
+            transform: rotate(45deg);
+        }
+
+        .shapes::after {
+            content: '';
+            position: absolute;
+            top: 120px;
+            left: 120px;
+            height: 50px;
+            width: 50px;
+            background-color: #7DCE82;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2E4057;
+            color: white;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
         }
     </style>
 </head>
+
 <body>
-    <div class="header">Welcome to My Abstract World</div>
+    <header>
+        <h1></h1>
+    </header>
 
     <div class="content">
-        <div class="maze">
-            <h2>Maze</h2>
-            <canvas id="mazeCanvas" width="200" height="200"></canvas>
-        </div>
-
-        <div class="snake-game">
-            <h2>Snake Game</h2>
-            <canvas id="snakeCanvas" width="200" height="200"></canvas>
-        </div>
-
-        <div class="tic-tac-toe">
-            <h2>Tic Tac Toe</h2>
-            <div id="ticTacToeGame"></div>
-        </div>
+        <h2>Welcome to the Modern Era</h2>
+        <p>
+            This page is inspired by the clean lines and geometric shapes that define mid-century modern design.
+            The minimal use of color and form highlights the aesthetic that became iconic in the 1950s and 60s.
+        </p>
+        <div class="shapes"></div>
     </div>
 
-    <script>
-        // Simple maze drawing
-        function drawMaze() {
-            const canvas = document.getElementById('mazeCanvas');
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = 'black';
-            for (let i = 0; i < 10; i++) {
-                ctx.fillRect(i * 20, i * 20, 10, 10);
-            }
-        }
-
-        // Simple Snake Game logic
-        function initSnakeGame() {
-            const canvas = document.getElementById('snakeCanvas');
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = 'green';
-            ctx.fillRect(10, 10, 20, 20);
-        }
-
-        // Simple Tic Tac Toe
-        function initTicTacToe() {
-            const container = document.getElementById('ticTacToeGame');
-            container.innerHTML = '<p>Coming Soon...</p>';
-        }
-
-        // Initialize all games and elements
-        window.onload = function() {
-            drawMaze();
-            initSnakeGame();
-            initTicTacToe();
-        }
-    </script>
+    <footer>
+        <p>&copy; 2024</p>
+    </footer>
 </body>
+
 </html>
