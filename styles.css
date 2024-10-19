@@ -1,55 +1,42 @@
 body {
-    background-color: #222;
-    color: #fff;
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 20px;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-.game-wrapper {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.game-container {
+    display: flex;
+    gap: 20px;
 }
 
 canvas {
-    background-color: #000;
-    border: 2px solid #555;
-    image-rendering: pixelated;
+    border: 2px solid #000;
+    background-color: #fff;
 }
 
-.sidebar {
-    margin-left: 20px;
-    text-align: left;
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.next-piece {
-    margin-bottom: 20px;
-}
-
-.info div {
-    margin-bottom: 10px;
+.score, .high-score {
     font-size: 18px;
+    font-weight: bold;
 }
 
-#pause-btn {
-    padding: 10px 20px;
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    padding: 10px;
     font-size: 16px;
-}
-
-@media (max-width: 600px) {
-    .game-wrapper {
-        flex-direction: column;
-        align-items: center;
-    }
-    .sidebar {
-        margin-left: 0;
-        margin-top: 20px;
-        text-align: center;
-    }
+    cursor: pointer;
 }
