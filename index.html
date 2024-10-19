@@ -7,9 +7,20 @@
 </head>
 <body>
     <h1>Tetris Game</h1>
-    <div class="game-container">
-        <canvas id="game" width="240" height="400"></canvas>
-        <div class="score">Score: <span id="score">0</span></div>
+    <div class="game-wrapper">
+        <canvas id="tetris" width="240" height="400"></canvas>
+        <div class="sidebar">
+            <div class="next-piece">
+                <h3>Next Piece</h3>
+                <canvas id="next" width="120" height="120"></canvas>
+            </div>
+            <div class="info">
+                <div>Score: <span id="score">0</span></div>
+                <div>Level: <span id="level">0</span></div>
+                <div>Lines: <span id="lines">0</span></div>
+                <button id="pause-btn">Pause</button>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
