@@ -141,25 +141,42 @@ function playerRotate(dir) {
     }
 }
 
+// ... (previous code remains the same)
+
 function rotate(matrix, dir) {
+    // Transpose the matrix
     for (let y = 0; y < matrix.length; ++y) {
         for (let x = 0; x < y; ++x) {
-            [
-                matrix[x][y],
-                matrix[y][x],
-            ] = [
-                matrix[y][x],
-                matrix[x][y],
-            ];
+            [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
         }
     }
-
+    
+    // Reverse each row for clockwise rotation, or reverse the order of rows for counter-clockwise
     if (dir > 0) {
         matrix.forEach(row => row.reverse());
     } else {
         matrix.reverse();
     }
 }
+
+function playerRotate(dir) {
+    const pos = player.pos.x;
+    let offset = 1;
+    const originalMatrix = player.matrix.map(row => [...row]);
+    rotate(player.matrix, dir);
+    
+    while (collide(arena, player)) {
+        player.pos.x += offset;
+        offset = -(offset + (offset > 0 ? 1 : -1));
+        if (offset > player.matrix[0].length) {
+            player.matrix = originalMatrix;
+            player.pos.x = pos;
+            return;
+        }
+    }
+}
+
+// ... (rest of the code remains the same)
 
 function collide(arena, player) {
     const [m, o] = [player.matrix, player.pos];
