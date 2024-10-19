@@ -1,92 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetris Game</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent page scrolling */
+}
 
-        .game-container {
-            display: flex;
-            gap: 20px;
-        }
+.game-container {
+    display: flex;
+    gap: 20px;
+}
 
-        canvas {
-            border: 2px solid #000;
-            background-color: #fff;
-        }
+canvas {
+    border: 2px solid #000;
+    background-color: #fff;
+}
 
-        .side-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-        .score, .high-score {
-            font-size: 18px;
-            font-weight: bold;
-        }
+.score, .high-score {
+    font-size: 18px;
+    font-weight: bold;
+}
 
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-        button {
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-        .instructions {
-            font-size: 16px;
-            line-height: 1.5;
-        }
+.instructions {
+    font-size: 16px;
+    line-height: 1.5;
+}
 
-        .game-over-message {
-            font-size: 20px;
-            color: red;
-            font-weight: bold;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="game-container">
-        <canvas id="tetris" width="240" height="400"></canvas>
-        <div class="side-panel">
-            <div class="score">Score: <span id="score">0</span></div>
-            <div class="high-score">High Score: <span id="highScore">0</span></div>
-            <div id="gameOverMessage" class="game-over-message" style="display: none;">
-                <p>Game Over! Press Start to Play Again.</p>
-            </div>
-            <div class="controls">
-                <button id="startButton">Start Game</button>
-                <button id="pauseButton" disabled>Pause</button>
-            </div>
-            <div class="instructions">
-                <p>Controls:</p>
-                <ul>
-                    <li>Left Arrow: Move Left</li>
-                    <li>Right Arrow: Move Right</li>
-                    <li>Down Arrow: Soft Drop</li>
-                    <li>Q: Rotate Counter-Clockwise</li>
-                    <li>W: Rotate Clockwise</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+.game-over-message {
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.paused-message {
+    font-size: 18px;
+    color: blue;
+    text-align: center;
+    display: none;
+}
