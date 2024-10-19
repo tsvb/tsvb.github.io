@@ -1,102 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mid Century Modern Architecture and Design</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="description" content="A website about Mid Century Modern architecture and design">
-  <meta name="keywords" content="Mid Century Modern, architecture, design, modernism">
-  <meta name="author" content="Your Name">
+    <meta charset="UTF-8">
+    <title>Tetris Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#introduction">Introduction</a></li>
-        <li><a href="#characteristics">Characteristics</a></li>
-        <li><a href="#influential-architects">Influential Architects</a></li>
-        <li><a href="#design-principles">Design Principles</a></li>
-        <li><a href="#case-studies">Case Studies</a></li>
-        <li><a href="#puzzle">Puzzle</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section id="introduction">
-      <h1>Mid Century Modern Architecture and Design</h1>
-      <p>Mid Century Modern architecture and design emerged in the 1930s and flourished until the 1960s. This style is characterized by clean lines, organic shapes, and an emphasis on functionality.</p>
-      <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Mid Century Modern architecture" loading="lazy">
-    </section>
-    <section id="characteristics">
-      <h2>Characteristics of Mid Century Modern Design</h2>
-      <ul>
-        <li>Large windows and sliding glass doors</li>
-        <li>Open floor plans</li>
-        <li>Minimal ornamentation</li>
-        <li>Use of natural materials</li>
-        <li>Integration with nature</li>
-      </ul>
-      <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Mid Century Modern design characteristics" loading="lazy">
-    </section>
-    <section id="influential-architects">
-      <h2>Influential Architects of Mid Century Modern Design</h2>
-      <ul>
-        <li>Richard Neutra</li>
-        <li>Albert Frey</li>
-        <li>Donald Wexler</li>
-        <li>Charles and Ray Eames</li>
-        <li>Eero Saarinen</li>
-      </ul>
-      <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Influential Mid Century Modern architects" loading="lazy">
-    </section>
-    <section id="design-principles">
-      <h2>Design Principles of Mid Century Modern Architecture</h2>
-      <ul>
-        <li>Functionality and simplicity</li>
-        <li>Integration with nature</li>
-        <li>Use of natural light</li>
-        <li>Minimal ornamentation</li>
-        <li>Emphasis on horizontal lines</li>
-      </ul>
-      <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Mid Century Modern design principles" loading="lazy">
-    </section>
-    <section id="case-studies">
-      <h2>Case Studies of Mid Century Modern Architecture</h2>
-      <ul>
-        <li>Farnsworth House by Ludwig Mies van der Rohe</li>
-        <li>Case Study House #22 by Pierre Koenig</li>
-        <li>Eames House by Charles and Ray Eames</li>
-        <li>Richard Neutra's VDL Research House</li>
-      </ul>
-      <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Mid Century Modern case studies" loading="lazy">
-    </section>
-    <section id="puzzle">
-      <h2>Solve the Puzzle to Unlock a Frank Lloyd Wright Design</h2>
-      <div class="puzzle-container">
-        <div class="puzzle-piece" id="piece-1">
-          <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Puzzle piece 1" loading="lazy">
-        </div>
-        <div class="puzzle-piece" id="piece-2">
-          <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Puzzle piece 2" loading="lazy">
-        </div>
-        <div class="puzzle-piece" id="piece-3">
-          <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Puzzle piece 3" loading="lazy">
-        </div>
-        <div class="puzzle-piece" id="piece-4">
-          <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Puzzle piece 4" loading="lazy">
-        </div>
-      </div>
-      <button id="solve-puzzle">Solve Puzzle</button>
-      <div id="puzzle-solution" style="display: none;">
-        <h2>Congratulations! You solved the puzzle.</h2>
-        <img src="https://www.hkarchitects.net/wp-content/uploads/2018/11/MCM-front-angle.jpg" alt="Frank Lloyd Wright design" loading="lazy">
-      </div>
-    </section>
-  </main>
-  <footer>
-  </footer>
-  <script src="script.js"></script>
+    <h1>Tetris Game</h1>
+    <div class="game-container">
+        <canvas id="game" width="240" height="400"></canvas>
+        <div class="score">Score: <span id="score">0</span></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
