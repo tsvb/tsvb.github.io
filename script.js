@@ -115,7 +115,7 @@ function playerReset() {
     const pieces = 'TJLOSZI';
     player.matrix = createPiece(pieces[Math.floor(pieces.length * Math.random())]);
     player.pos.y = 0;
-    player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+    player.pos.x = Math.floor((arena[0].length / 2) - (player.matrix[0].length / 2));
     if (collide(arena, player)) {
         arena.forEach(row => row.fill(0));
         gameOver = true;
@@ -162,8 +162,7 @@ function rotate(matrix, dir) {
 }
 
 function collide(arena, player) {
-    const m = player.matrix;
-    const o = player.pos;
+    const [m, o] = [player.matrix, player.pos];
     for (let y = 0; y < m.length; ++y) {
         for (let x = 0; x < m[y].length; ++x) {
             if (m[y][x] !== 0 &&
@@ -199,15 +198,12 @@ function updateScore() {
 }
 
 function updateHighScore() {
-    if (player.score > parseInt(localStorage.getItem('tetrisHighScore')) || 0) {
-        localStorage.setItem('tetrisHighScore', player.score);
-        highScoreElement.innerText = player.score;
-    }
+    const highScore = Math.max(player.score, parseInt(localStorage.getItem('tetrisHighScore')) || 0);
+    localStorage.setItem('tetrisHighScore', highScore);
+    highScoreElement.innerText = highScore;
 }
 
 function update(time = 0) {
-    if (gameOver || paused) return;
-
     const deltaTime = time - lastTime;
 
     dropCounter += deltaTime;
@@ -218,7 +214,10 @@ function update(time = 0) {
     lastTime = time;
 
     draw();
-    requestAnimationFrame(update);
+
+    if (!gameOver && !paused) {
+        requestAnimationFrame(update);
+    }
 }
 
 window.addEventListener('keydown', function(e) {
@@ -245,6 +244,7 @@ document.addEventListener('keydown', event => {
 
 startButton.addEventListener('click', () => {
     if (gameOver) {
+        arena.forEach(row => row.fill(0));
         gameOver = false;
         paused = false;
         pausedMessage.style.display = 'none';
@@ -254,6 +254,7 @@ startButton.addEventListener('click', () => {
         player.score = 0;
         updateScore();
         playerReset();
+        lastTime = performance.now();
         update();
     }
 });
@@ -269,6 +270,7 @@ pauseButton.addEventListener('click', () => {
     }
 });
 
-highScoreElement.innerText = localStorage.getItem('tetrisHighScore') || 0;
+updateHighScore();
 playerReset();
 updateScore();
+draw();
