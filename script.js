@@ -32,36 +32,49 @@ function createMatrix(w, h) {
 }
 
 function createPiece(type) {
-    const pieces = {
-        'T': [
+    if (type === 'T') {
+        return [
+            [0, 0, 0],
+            [1, 1, 1],
             [0, 1, 0],
-            [1, 1, 1],
-        ],
-        'O': [
+        ];
+    } else if (type === 'O') {
+        return [
             [1, 1],
             [1, 1],
-        ],
-        'L': [
-            [0, 0, 1],
-            [1, 1, 1],
-        ],
-        'J': [
-            [1, 0, 0],
-            [1, 1, 1],
-        ],
-        'I': [
+        ];
+    } else if (type === 'L') {
+        return [
+            [0, 1, 0],
+            [0, 1, 0],
+            [0, 1, 1],
+        ];
+    } else if (type === 'J') {
+        return [
+            [0, 1, 0],
+            [0, 1, 0],
+            [1, 1, 0],
+        ];
+    } else if (type === 'I') {
+        return [
+            [0, 0, 0, 0],
             [1, 1, 1, 1],
-        ],
-        'S': [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ];
+    } else if (type === 'S') {
+        return [
             [0, 1, 1],
             [1, 1, 0],
-        ],
-        'Z': [
+            [0, 0, 0],
+        ];
+    } else if (type === 'Z') {
+        return [
             [1, 1, 0],
             [0, 1, 1],
-        ],
-    };
-    return pieces[type];
+            [0, 0, 0],
+        ];
+    }
 }
 
 function draw() {
@@ -129,41 +142,8 @@ function playerReset() {
 function playerRotate(dir) {
     const pos = player.pos.x;
     let offset = 1;
-    rotate(player.matrix, dir);
-    while (collide(arena, player)) {
-        player.pos.x += offset;
-        offset = -(offset + (offset > 0 ? 1 : -1));
-        if (offset > player.matrix[0].length) {
-            rotate(player.matrix, -dir);
-            player.pos.x = pos;
-            return;
-        }
-    }
-}
-
-// ... (previous code remains the same)
-
-function rotate(matrix, dir) {
-    // Transpose the matrix
-    for (let y = 0; y < matrix.length; ++y) {
-        for (let x = 0; x < y; ++x) {
-            [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
-        }
-    }
-    
-    // Reverse each row for clockwise rotation, or reverse the order of rows for counter-clockwise
-    if (dir > 0) {
-        matrix.forEach(row => row.reverse());
-    } else {
-        matrix.reverse();
-    }
-}
-
-function playerRotate(dir) {
-    const pos = player.pos.x;
-    let offset = 1;
     const originalMatrix = player.matrix.map(row => [...row]);
-    rotate(player.matrix, dir);
+    player.matrix = rotate(player.matrix, dir);
     
     while (collide(arena, player)) {
         player.pos.x += offset;
@@ -176,7 +156,19 @@ function playerRotate(dir) {
     }
 }
 
-// ... (rest of the code remains the same)
+function rotate(matrix, dir) {
+    // Transpose the matrix
+    const N = matrix.length - 1;
+    const result = matrix.map((row, i) => 
+        row.map((val, j) => matrix[N - j][i])
+    );
+    // Reverse rows for clockwise rotation
+    if (dir > 0) {
+        return result.map(row => row.reverse());
+    } else {
+        return result.reverse();
+    }
+}
 
 function collide(arena, player) {
     const [m, o] = [player.matrix, player.pos];
