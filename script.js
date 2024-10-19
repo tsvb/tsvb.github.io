@@ -1,4 +1,3 @@
-// Full updated script.js for Tetris Game
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
@@ -222,14 +221,12 @@ function update(time = 0) {
     requestAnimationFrame(update);
 }
 
-// Prevent arrow keys from scrolling the page
 window.addEventListener('keydown', function(e) {
     if ([37, 38, 39, 40].includes(e.keyCode)) {
         e.preventDefault();
     }
 });
 
-// Handle key press for player movement
 document.addEventListener('keydown', event => {
     if (gameOver || paused) return;
 
@@ -267,7 +264,7 @@ pauseButton.addEventListener('click', () => {
     pausedMessage.style.display = paused ? 'block' : 'none';
     pauseButton.textContent = paused ? 'Resume' : 'Pause';
     if (!paused) {
-        lastTime = performance.now(); // Reset the timer to avoid skipping frames
+        lastTime = performance.now();
         update();
     }
 });
