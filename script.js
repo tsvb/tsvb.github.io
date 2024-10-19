@@ -30,51 +30,86 @@ function createMatrix(w, h) {
     }
     return matrix;
 }
-
+const PIECES = {
+    'T': [
+        [[0, 0, 0],
+         [1, 1, 1],
+         [0, 1, 0]],
+        [[0, 1, 0],
+         [1, 1, 0],
+         [0, 1, 0]],
+        [[0, 1, 0],
+         [1, 1, 1],
+         [0, 0, 0]],
+        [[0, 1, 0],
+         [0, 1, 1],
+         [0, 1, 0]],
+    ],
+    'O': [
+        [[1, 1],
+         [1, 1]],
+    ],
+    'L': [
+        [[0, 0, 1],
+         [1, 1, 1],
+         [0, 0, 0]],
+        [[0, 1, 0],
+         [0, 1, 0],
+         [0, 1, 1]],
+        [[0, 0, 0],
+         [1, 1, 1],
+         [1, 0, 0]],
+        [[1, 1, 0],
+         [0, 1, 0],
+         [0, 1, 0]],
+    ],
+    'J': [
+        [[1, 0, 0],
+         [1, 1, 1],
+         [0, 0, 0]],
+        [[0, 1, 1],
+         [0, 1, 0],
+         [0, 1, 0]],
+        [[0, 0, 0],
+         [1, 1, 1],
+         [0, 0, 1]],
+        [[0, 1, 0],
+         [0, 1, 0],
+         [1, 1, 0]],
+    ],
+    'I': [
+        [[0, 0, 0, 0],
+         [1, 1, 1, 1],
+         [0, 0, 0, 0],
+         [0, 0, 0, 0]],
+        [[0, 0, 1, 0],
+         [0, 0, 1, 0],
+         [0, 0, 1, 0],
+         [0, 0, 1, 0]],
+    ],
+    'S': [
+        [[0, 1, 1],
+         [1, 1, 0],
+         [0, 0, 0]],
+        [[0, 1, 0],
+         [0, 1, 1],
+         [0, 0, 1]],
+    ],
+    'Z': [
+        [[1, 1, 0],
+         [0, 1, 1],
+         [0, 0, 0]],
+        [[0, 0, 1],
+         [0, 1, 1],
+         [0, 1, 0]],
+    ],
+};
 function createPiece(type) {
-    if (type === 'T') {
-        return [
-            [0, 0, 0],
-            [1, 1, 1],
-            [0, 1, 0],
-        ];
-    } else if (type === 'O') {
-        return [
-            [1, 1],
-            [1, 1],
-        ];
-    } else if (type === 'L') {
-        return [
-            [0, 1, 0],
-            [0, 1, 0],
-            [0, 1, 1],
-        ];
-    } else if (type === 'J') {
-        return [
-            [0, 1, 0],
-            [0, 1, 0],
-            [1, 1, 0],
-        ];
-    } else if (type === 'I') {
-        return [
-            [0, 0, 0, 0],
-            [1, 1, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-        ];
-    } else if (type === 'S') {
-        return [
-            [0, 1, 1],
-            [1, 1, 0],
-            [0, 0, 0],
-        ];
-    } else if (type === 'Z') {
-        return [
-            [1, 1, 0],
-            [0, 1, 1],
-            [0, 0, 0],
-        ];
-    }
+    return {
+        type: type,
+        matrix: PIECES[type][0],
+        rotation: 0
+    };
 }
 
 function draw() {
@@ -142,32 +177,24 @@ function playerReset() {
 function playerRotate(dir) {
     const pos = player.pos.x;
     let offset = 1;
-    const originalMatrix = player.matrix.map(row => [...row]);
-    player.matrix = rotate(player.matrix, dir);
+    const originalRotation = player.rotation;
+    rotate(player, dir);
     
     while (collide(arena, player)) {
         player.pos.x += offset;
         offset = -(offset + (offset > 0 ? 1 : -1));
         if (offset > player.matrix[0].length) {
-            player.matrix = originalMatrix;
+            rotate(player, -dir);
             player.pos.x = pos;
             return;
         }
     }
 }
 
-function rotate(matrix, dir) {
-    // Transpose the matrix
-    const N = matrix.length - 1;
-    const result = matrix.map((row, i) => 
-        row.map((val, j) => matrix[N - j][i])
-    );
-    // Reverse rows for clockwise rotation
-    if (dir > 0) {
-        return result.map(row => row.reverse());
-    } else {
-        return result.reverse();
-    }
+function rotate(player, dir) {
+    const piece = PIECES[player.type];
+    player.rotation = (player.rotation + dir + piece.length) % piece.length;
+    player.matrix = piece[player.rotation];
 }
 
 function collide(arena, player) {
