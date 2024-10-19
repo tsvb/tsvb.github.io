@@ -1,3 +1,4 @@
+// Improved Tetris script.js based on suggestions provided
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
@@ -8,36 +9,35 @@ const pauseButton = document.getElementById('pauseButton');
 context.scale(20, 20);
 
 // Tetromino shapes and colors
-const pieces = [
-    [
+const pieceMap = {
+    'I': [
         [1, 1, 1, 1],
-        [0, 0, 0, 0],
     ],
-    [
+    'O': [
         [1, 1],
         [1, 1],
     ],
-    [
+    'Z': [
         [1, 1, 0],
         [0, 1, 1],
     ],
-    [
+    'S': [
         [0, 1, 1],
         [1, 1, 0],
     ],
-    [
+    'T': [
         [1, 1, 1],
         [0, 1, 0],
     ],
-    [
+    'L': [
         [1, 1, 1],
         [1, 0, 0],
     ],
-    [
+    'J': [
         [1, 1, 1],
         [0, 0, 1],
     ],
-];
+};
 
 const colors = [
     null,
@@ -53,8 +53,6 @@ const colors = [
 let dropCounter = 0;
 let dropInterval = 1000;
 let lastTime = 0;
-let score = 0;
-let highScore = parseInt(localStorage.getItem('tetrisHighScore')) || 0;
 let paused = false;
 let gameOver = true;
 
@@ -75,7 +73,7 @@ function createMatrix(w, h) {
 }
 
 function createPiece(type) {
-    return pieces[type];
+    return pieceMap[type];
 }
 
 function draw() {
@@ -147,7 +145,7 @@ function playerMove(offset) {
 
 function playerReset() {
     const pieces = 'TJLOSZI';
-    player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+    player.matrix = createPiece(pieces[Math.floor(pieces.length * Math.random())]);
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
     if (collide(arena, player)) {
@@ -233,18 +231,25 @@ function update(time = 0) {
     requestAnimationFrame(update);
 }
 
+// Event listeners
+const KEY_LEFT = 37;
+const KEY_RIGHT = 39;
+const KEY_DOWN = 40;
+const KEY_ROTATE_CCW = 81;
+const KEY_ROTATE_CW = 87;
+
 document.addEventListener('keydown', event => {
     if (gameOver || paused) return;
 
-    if (event.keyCode === 37) {
+    if (event.keyCode === KEY_LEFT) {
         playerMove(-1);
-    } else if (event.keyCode === 39) {
+    } else if (event.keyCode === KEY_RIGHT) {
         playerMove(1);
-    } else if (event.keyCode === 40) {
+    } else if (event.keyCode === KEY_DOWN) {
         playerDrop();
-    } else if (event.keyCode === 81) {
+    } else if (event.keyCode === KEY_ROTATE_CCW) {
         playerRotate(-1);
-    } else if (event.keyCode === 87) {
+    } else if (event.keyCode === KEY_ROTATE_CW) {
         playerRotate(1);
     }
 });
@@ -261,7 +266,10 @@ startButton.addEventListener('click', () => {
 
 pauseButton.addEventListener('click', () => {
     paused = !paused;
-    if (!paused) update();
+    if (!paused) {
+        lastTime = performance.now(); // Reset the timer to avoid skipping frames
+        update();
+    }
 });
 
 highScoreElement.innerText = highScore;
