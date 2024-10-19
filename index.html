@@ -12,9 +12,22 @@
         <div class="side-panel">
             <div class="score">Score: <span id="score">0</span></div>
             <div class="high-score">High Score: <span id="highScore">0</span></div>
+            <div id="gameOverMessage" class="game-over-message" style="display: none;">
+                <p>Game Over! Press Start to Play Again.</p>
+            </div>
             <div class="controls">
-                <button id="startButton">Start</button>
-                <button id="pauseButton">Pause</button>
+                <button id="startButton">Start Game</button>
+                <button id="pauseButton" disabled>Pause</button>
+            </div>
+            <div class="instructions">
+                <p>Controls:</p>
+                <ul>
+                    <li>Left Arrow: Move Left</li>
+                    <li>Right Arrow: Move Right</li>
+                    <li>Down Arrow: Soft Drop</li>
+                    <li>Q: Rotate Counter-Clockwise</li>
+                    <li>W: Rotate Clockwise</li>
+                </ul>
             </div>
         </div>
     </div>
