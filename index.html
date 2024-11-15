@@ -6,8 +6,10 @@
   <title>Astrological Dice Roller</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: monospace;
       text-align: center;
+      background-color: #f9f9f9;
+      color: #333;
       margin: 0;
       padding: 20px;
     }
@@ -16,37 +18,132 @@
       padding: 10px 20px;
       cursor: pointer;
       margin-top: 20px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .dice-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      white-space: pre;
     }
     .result {
       margin-top: 20px;
-      font-size: 24px;
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
   <h1>Astrological Dice Roller</h1>
   <button onclick="rollDice()">Click Me</button>
+  <div class="dice-container" id="diceContainer">
+    <!-- Dice will be displayed here -->
+  </div>
   <div class="result" id="result"></div>
 
   <script>
+    const diceFaces = [
+      `+-------+
+|       |
+|   *   |
+|       |
++-------+`, // 1
+
+      `+-------+
+| *     |
+|       |
+|     * |
++-------+`, // 2
+
+      `+-------+
+| *     |
+|   *   |
+|     * |
++-------+`, // 3
+
+      `+-------+
+| *   * |
+|       |
+| *   * |
++-------+`, // 4
+
+      `+-------+
+| *   * |
+|   *   |
+| *   * |
++-------+`, // 5
+
+      `+-------+
+| *   * |
+| *   * |
+| *   * |
++-------+`, // 6
+
+      `+-------+
+| *   * |
+| * * * |
+| *   * |
++-------+`, // 7
+
+      `+-------+
+| * * * |
+|       |
+| * * * |
++-------+`, // 8
+
+      `+-------+
+| * * * |
+|   *   |
+| * * * |
++-------+`, // 9
+
+      `+-------+
+| * * * |
+| * * * |
+| * * * |
++-------+`, // 10
+    ];
+
     const astrologicalSigns = [
       "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
       "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
     ];
 
     function rollDice() {
-      const die1 = Math.floor(Math.random() * 10) + 1;
-      const die2 = Math.floor(Math.random() * 10) + 1;
-      const die3 = Math.floor(Math.random() * 10) + 1;
+      const diceContainer = document.getElementById("diceContainer");
+      const result = document.getElementById("result");
 
-      const total = die1 + die2 + die3;
+      // Simulate rolling three dice
+      const diceRolls = [
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+      ];
+
+      // Clear previous dice faces
+      diceContainer.innerHTML = "";
+
+      // Display each dice face
+      diceRolls.forEach((roll) => {
+        const dice = document.createElement("div");
+        dice.textContent = diceFaces[roll];
+        diceContainer.appendChild(dice);
+      });
+
+      // Determine the astrological sign
+      const total = diceRolls.reduce((sum, roll) => sum + roll + 1, 0);
       const signIndex = total % astrologicalSigns.length;
       const astrologicalSign = astrologicalSigns[signIndex];
 
-      document.getElementById('result').innerHTML = `
-        You rolled: ${die1}, ${die2}, ${die3} (Total: ${total})<br>
-        Your astrological sign is: <strong>${astrologicalSign}</strong>
-      `;
+      // Display the result
+      result.textContent = `Your astrological sign is: ${astrologicalSign}`;
     }
   </script>
 </body>
